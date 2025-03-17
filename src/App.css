@@ -1,0 +1,29 @@
+/* App.css */
+.global-background {
+  /* Dark Background */
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh; /* Ensure it covers the whole viewport height */
+}
+
+.global-background::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -20%;
+  top: auto;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.global-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.1; /* Adjust for subtle effect */
+  z-index: 2;
+  pointer-events: none;
+}
