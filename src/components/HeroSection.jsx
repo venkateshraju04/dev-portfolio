@@ -98,13 +98,17 @@ export default function HeroSection() {
             data-aos-delay="200"
             className="text-xl text-gray-300 mt-4"
           >
-            I’ve been passionate about computer technology since childhood,
-            always curious about how things work behind the scenes. This
-            curiosity led me to dive deep into development and programming.
+            I'm a passionate Web Developer who loves building web applications
+            and crafting immersive digital experiences. When I’m not coding, I
+            dive into the latest tech trends in both smartphones and computers,
+            always eager to learn and grow.
             <br />
             <br />
             I’m currently expanding my skills in AWS and exploring the world of
-            machine learning, constantly pushing myself to learn and grow.
+            machine learning.
+            <br />
+            In my free time, I enjoy playing PC games and watching movies or web
+            series.
           </p>
         </div>
       </div>
