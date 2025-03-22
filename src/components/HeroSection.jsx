@@ -29,7 +29,7 @@ export default function HeroSection() {
                 words={[
                   "Web Developer.",
                   "Software Developer.",
-                  "Tech Enthusiast!",
+                  "Video Editor.",
                 ]}
                 loop={true}
                 cursor
@@ -183,10 +183,18 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="text-3xl font-bold md:col-span-2">
+          <div
+            className="text-3xl font-bold md:col-span-2"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             PROGRAMMING LANGUAGES
           </div>
-          <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div
+            className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             <div className="flex items-center space-x-2 mb-4">
               <img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"
@@ -213,8 +221,18 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="text-3xl font-bold md:col-span-2">DATABASE</div>
-          <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div
+            className="text-3xl font-bold md:col-span-2"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            DATABASE
+          </div>
+          <div
+            className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             <div className="flex items-center space-x-2 mb-4">
               <img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
@@ -237,8 +255,18 @@ export default function HeroSection() {
               <span>MongoDB</span>
             </div>
           </div>
-          <div className="text-3xl font-bold md:col-span-2">TOOLS</div>
-          <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div
+            className="text-3xl font-bold md:col-span-2"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            TOOLS
+          </div>
+          <div
+            className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             <div className="flex items-center space-x-2 mb-4">
               <img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
@@ -266,7 +294,11 @@ export default function HeroSection() {
         <h2 className="text-5xl font-extrabold mb-4 text-sky-300  drop-shadow-[0_0_7px_rgba(192,132,252,0.8)]">
           PROJECTS
         </h2>
-        <div className="text-xl text-gray-300 mb-8">
+        <div
+          className="text-xl text-gray-300 mb-8"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
           <p>Here's some of my projects that I have worked on.</p>
           <a
             href="https://www.github.com/venkateshraju04"
@@ -276,7 +308,11 @@ export default function HeroSection() {
             Explore more <span className="ml-1">→</span>
           </a>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
           {/* Left Column - First Project */}
           <div className="flex items-center justify-center h-full">
             <div className="bg-gray-900 rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.01] w-full">
@@ -432,10 +468,14 @@ export default function HeroSection() {
           <h2 className="text-5xl font-bold text-purple-400 mb-6 drop-shadow-[0_0_7px_rgba(192,132,252,0.8)]">
             CONTACT ME
           </h2>
-          <p className="text-lg mb-8">
+          <p className="text-lg mb-8" data-aos="fade-up" data-aos-delay="200">
             Got a project or just want to connect? Feel free to reach out!
           </p>
-          <div className="flex justify-center gap-4">
+          <div
+            className="flex justify-center gap-4"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             <a
               href="mailto:venkateshraju290204@gmail.com"
               className="flex items-center gap-2 px-5 py-2 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-lg transition-all duration-300 shadow-lg"
