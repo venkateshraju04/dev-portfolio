@@ -12,20 +12,17 @@ export default function HeroSection() {
   return (
     <div>
       {/* Hero Section */}
-      <div
-        className="relative flex items-center justify-start px-8 h-screen mx-auto"
-        id="home"
-      >
+      <div className="relative py-5 max-w-7xl mx-auto px-10" id="home">
         {/* Hero Content */}
         <div
-          className="relative z-10 max-w-7xl w-full text-center lg:text-left text-white px-30"
+          className="relative z-10 w-full my-45 lg:text-left text-center text-white"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
           <h2 className="text-3xl text-green-400 py-5">Hey there!, I'm</h2>
-          <h1 className="text-8xl font-extrabold mb-4 drop-shadow-[0_0_6px_rgba(192,132,252,0.8)]">
+          <h1 className="text-5xl sm:text-8xl font-extrabold mb-4 drop-shadow-[0_0_6px_rgba(192,132,252,0.8)]">
             VENKATESH
           </h1>
-          <h2 className="text-4xl text-sky-400">
+          <h2 className="text-2xl sm:text-4xl text-sky-400">
             I'm a{" "}
             <span id="type-skill" className="text-purple-400">
               <Typewriter
@@ -43,7 +40,11 @@ export default function HeroSection() {
             </span>
           </h2>
           {/* Profile Links */}
-          <div className="flex gap-4 mt-8">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="flex flex-wrap justify-center lg:justify-start gap-4 mt-8"
+          >
             <a
               href="https://www.linkedin.com/in/venkateshraju04"
               target="_blank"
@@ -77,12 +78,26 @@ export default function HeroSection() {
         className="relative py-5 max-w-7xl mx-auto px-10 text-white scroll-mt-20"
         style={{ fontFamily: "Montserrat, sans-serif" }}
       >
-        <h2 className="text-5xl font-extrabold mb-4 text-sky-300 drop-shadow-[0_0_7px_rgba(192,132,252,0.8)]">
+        <h2
+          data-aos="fade-up"
+          data-aos-delay="200"
+          className="text-5xl font-extrabold mb-4 text-sky-300 drop-shadow-[0_0_7px_rgba(192,132,252,0.8)]"
+        >
           ABOUT ME
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <p className="text-3xl text-gray-300 pt-5">Hey!, I'm Venkatesh.</p>
-          <p className="text-xl text-gray-300 mt-4">
+          <p
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="text-3xl text-gray-300 pt-5"
+          >
+            Hey!, I'm Venkatesh.
+          </p>
+          <p
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="text-xl text-gray-300 mt-4"
+          >
             I’ve been passionate about computer technology since childhood,
             always curious about how things work behind the scenes. This
             curiosity led me to dive deep into development and programming.
@@ -103,10 +118,18 @@ export default function HeroSection() {
           SKILLS
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start text-white">
-          <div className="text-3xl font-bold md:col-span-2">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="text-3xl font-bold md:col-span-2"
+          >
             WEB TECHNOLOGIES
           </div>
-          <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4"
+          >
             <div className="flex items-center space-x-2 mb-4">
               <img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
