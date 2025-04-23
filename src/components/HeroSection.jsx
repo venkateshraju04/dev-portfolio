@@ -452,8 +452,7 @@ export default function HeroSection() {
                   </span>
                 </div>
                 <p className="text-gray-400">
-                  It's an easy to use API to get today's (and tomorrow's!)
-                  prayer time in any city in the world, based on Muslim Pro.
+                  Collaborated in team to develop a secure online voting system based on blockchain. 
                 </p>
               </div>
             </div>
