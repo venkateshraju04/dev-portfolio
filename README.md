@@ -1,9 +1,7 @@
 # Portfolio Website
-Welcome to my personal portfolio website! This is a showcase of my work, skills, projects, and contact information. Built to serve as a digital resume and a hub for everything I’m working on or passionate about.
-
+This is my old portfolio, find the newer one [here](https://venkateshraju.me/) 
 ## Live Site
-Visit my site [here](https://venkateshraju.me/)
-
+If you still wish to check the older one, checkout here [dev.venkateshraju.me](https://dev.venkateshraju.me)
 ## Tech Stack
 Frontend: HTML5, React, Tailwind CSS
 
