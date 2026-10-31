@@ -1,0 +1,93 @@
+/* Slab: the lyric-video block letter. JS splits it into letters and gives
+   each one a palette colour (no two neighbours alike). */
+.slab {
+  font-family: var(--face);
+  font-size: var(--fs-slab);
+  font-weight: 900;
+  --w: 64%;
+  font-stretch: var(--w);
+  line-height: 0.82;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--violet);
+}
+
+.slab__word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.slab__word + .slab__word {
+  margin-left: 0.14em;
+}
+
+.slab__ch {
+  display: inline-block;
+  color: var(--c, var(--violet));
+  will-change: transform;
+}
+
+/* On grey, colour or moiré grounds the letters get the black outline and
+   offset from "WILL I BE" / "LOVED". On black they stay flat, as in "SOBER". */
+.slab--outlined,
+.slab--outlined .slab__ch {
+  -webkit-text-stroke: 0.075em var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 0.03em 0.045em 0 var(--ink);
+}
+
+/* Section headings breathe with scroll velocity */
+.heading .slab {
+  font-stretch: calc(var(--w) + var(--flex));
+}
+
+.heading {
+  position: relative;
+  display: inline-block;
+  margin-bottom: clamp(40px, 7vw, 96px);
+}
+
+/* Track title in marker, scrawled over the slab like "STARTING" in the reference */
+.scribble {
+  position: absolute;
+  right: -0.35em;
+  bottom: 4%;
+  z-index: 2;
+  font-family: var(--hand);
+  font-size: clamp(1.5rem, 4vw, 3.5rem);
+  line-height: 1;
+  color: var(--mustard);
+  white-space: nowrap;
+  transform: rotate(-7deg);
+  text-shadow: 0.06em 0.06em 0 var(--ink);
+  pointer-events: none;
+}
+
+.heading--table .scribble {
+  color: var(--bone);
+}
+
+/* Vertical stack, like "IS / THERE / ONE" */
+.slab--stack .slab__word {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0.76;
+}
+
+.slab--stack {
+  font-size: clamp(7rem, 24vw, 26rem);
+  --w: 58%;
+}
+
+@media (max-width: 640px) {
+  .scribble {
+    right: 0;
+    bottom: -0.6em;
+  }
+
+  .heading--stack .scribble {
+    left: 55%;
+    right: auto;
+  }
+}

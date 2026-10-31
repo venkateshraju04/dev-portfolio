@@ -1,0 +1,30 @@
+/* Currents palette, sampled from the album cover and the lyric-video references */
+:root {
+  --violet: #7b5cc4;
+  --lilac: #c3a8f2;
+  --deep: #24123f;
+  --brick: #c9402b;
+  --orange: #e8702a;
+  --mustard: #f0c443;
+  --ink: #000000;
+  --bone: #ede7dc;
+  --table: #8f8b85;
+
+  --face: "Anybody", "Arial Narrow", system-ui, sans-serif;
+  --hand: "Permanent Marker", "Comic Sans MS", cursive;
+
+  /* Bringhurst's scale, with one fluid display step on top */
+  --fs-14: 0.875rem;
+  --fs-18: 1.125rem;
+  --fs-24: 1.5rem;
+  --fs-36: 2.25rem;
+  --fs-60: 3.75rem;
+  --fs-96: 6rem;
+  --fs-slab: clamp(5.5rem, 19vw, 21rem);
+
+  --gutter: clamp(16px, 5vw, 88px);
+  --cut: 14px;          /* ticket chamfer */
+  --flex: 0%;           /* scroll-velocity width offset, set from JS */
+
+  --ease-slam: cubic-bezier(0.2, 1.6, 0.4, 1);
+}

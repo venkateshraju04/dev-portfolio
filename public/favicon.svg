@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <pattern id="b" width="64" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-8)">
+      <rect width="64" height="6" fill="#24123F"/><rect y="2" width="64" height="3" fill="#C3A8F2"/>
+    </pattern>
+    <radialGradient id="s" cx="38%" cy="32%" r="70%">
+      <stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#b9b7c4"/><stop offset="1" stop-color="#2b2438"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="10" fill="url(#b)"/>
+  <circle cx="34" cy="34" r="17" fill="url(#s)"/>
+</svg>

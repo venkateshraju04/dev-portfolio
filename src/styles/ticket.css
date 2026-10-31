@@ -1,0 +1,228 @@
+/* ---------- Work: tickets on the grey collage table ---------- */
+.work {
+  position: relative;
+  background: var(--table);
+  color: var(--ink);
+  padding: clamp(96px, 14vh, 160px) 0 clamp(64px, 10vh, 120px);
+}
+
+.work .heading {
+  align-self: flex-start;
+  margin: 0 var(--gutter) clamp(24px, 4vh, 48px);
+}
+
+.work .heading .slab {
+  font-size: clamp(5rem, min(15vw, 22vh), 15rem);
+}
+
+/* Default (no JS, reduced motion, phones): a native swipe row */
+.work__track {
+  display: flex;
+  gap: clamp(24px, 5vw, 96px);
+  padding: 40px var(--gutter) 56px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink) transparent;
+}
+
+.ticket {
+  flex: none;
+  display: flex;
+  gap: 3px;
+  width: min(80vw, 1040px);
+  height: min(60vh, 520px);
+  min-height: 420px;
+  scroll-snap-align: center;
+  transform: translateY(var(--drop, 0)) rotate(var(--tilt, 0deg));
+  filter: drop-shadow(10px 14px 0 rgb(0 0 0 / 0.22));
+}
+
+.ticket__art {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--deep);
+}
+
+.ticket__art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ticket__title {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: 7%;
+  font-size: clamp(3rem, 6.2vw, 7rem);
+  line-height: 0.84;
+}
+
+.sticker--stat {
+  position: absolute;
+  top: 8%;
+  right: 6%;
+  font-size: var(--fs-24);
+  font-weight: 900;
+  font-stretch: 130%;
+  transform: rotate(4deg);
+}
+
+.sticker--stat::before {
+  background: var(--mustard);
+}
+
+.ticket__stub {
+  position: relative;
+  flex: 0 0 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 28px 24px 24px 30px;
+  background: var(--bone);
+  transform-origin: 0% 100%;
+  transition: transform 0.35s var(--ease-slam);
+}
+
+/* The perforation between the show and the admission */
+.ticket__stub::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: var(--cut);
+  bottom: var(--cut);
+  width: 4px;
+  background: repeating-linear-gradient(to bottom, var(--ink) 0 9px, transparent 9px 16px);
+}
+
+.ticket__stub:hover,
+.ticket__stub:focus-within {
+  transform: translate(6px, -8px) rotate(2deg);
+}
+
+.ticket__year {
+  color: var(--brick);
+  font-size: var(--fs-36);
+  font-weight: 900;
+  font-stretch: 150%;
+  line-height: 1;
+}
+
+.ticket__desc {
+  font-size: var(--fs-18);
+  line-height: 1.45;
+}
+
+.ticket__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ticket__stack li {
+  padding: 2px 8px;
+  border: 2px solid var(--ink);
+  font-size: var(--fs-14);
+  font-weight: 700;
+  font-stretch: 110%;
+}
+
+.ticket__link {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 10px 16px 9px;
+  background: var(--ink);
+  color: var(--mustard);
+  font-weight: 800;
+  font-stretch: 120%;
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.ticket__link:hover {
+  background: var(--brick);
+  color: var(--bone);
+}
+
+/* ---------- Pinned, 3D camera version (desktop with motion) ---------- */
+.motion .work {
+  padding: 0;
+}
+
+.motion .work__pin {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: clamp(80px, 11vh, 120px);
+  overflow: hidden;
+}
+
+.motion .work__stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  perspective: 1400px;
+}
+
+.motion .work__plane {
+  transform-style: preserve-3d;
+  transform-origin: 30% 50%;
+  will-change: transform;
+}
+
+/* Fit whatever height is left under the heading on short laptop screens */
+.motion .ticket {
+  height: clamp(340px, calc(100vh - 340px), 520px);
+  min-height: 0;
+}
+
+.motion .work__track {
+  width: max-content;
+  overflow: visible;
+  padding: 0 14vw 0 var(--gutter);
+  scroll-snap-type: none;
+  will-change: transform;
+}
+
+/* ---------- Phones: tickets turn portrait, perforation runs across ---------- */
+@media (max-width: 767px) {
+  .ticket {
+    flex-direction: column;
+    width: 84vw;
+    height: auto;
+    min-height: 0;
+  }
+
+  .ticket__art {
+    flex: none;
+    aspect-ratio: 4 / 3.4;
+  }
+
+  .ticket__title {
+    font-size: clamp(2.6rem, 13vw, 4rem);
+  }
+
+  .ticket__stub {
+    flex: none;
+    padding: 24px 20px 20px;
+  }
+
+  .ticket__stub::before {
+    left: var(--cut);
+    right: var(--cut);
+    top: 0;
+    bottom: auto;
+    width: auto;
+    height: 4px;
+    background: repeating-linear-gradient(to right, var(--ink) 0 9px, transparent 9px 16px);
+  }
+
+  .sticker--stat {
+    font-size: var(--fs-18);
+  }
+}

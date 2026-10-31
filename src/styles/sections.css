@@ -1,0 +1,367 @@
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  min-height: 520px;
+  background: var(--deep) url("/art/hero-still.jpg") 60% 50% / cover no-repeat;
+}
+
+.webgl .hero {
+  background: none;
+}
+
+.hero__line {
+  position: absolute;
+  left: clamp(16px, 2.4vw, 32px);
+  bottom: clamp(20px, 4vh, 40px);
+  max-width: calc(100vw - 32px);
+  padding: 10px 14px 9px;
+  background: var(--ink);
+  color: var(--bone);
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* ---------- Black frames (About, Now, Tools) ---------- */
+.frame {
+  position: relative;
+  padding: clamp(96px, 14vh, 168px) var(--gutter);
+  background: var(--ink);
+}
+
+/* ---------- About ---------- */
+.about__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(48px, 7vw, 120px);
+  align-items: center;
+}
+
+.about__collage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(128px, 28%);
+  gap: 3px;
+  margin-top: clamp(32px, 6vw, 88px);
+  transform: rotate(-1.5deg);
+}
+
+.about__ticket {
+  grid-area: 1 / 1;
+  align-self: end;
+  position: relative;
+  aspect-ratio: 4 / 3.3;
+  background: var(--brick);
+}
+
+.about__shards {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.about__photo {
+  grid-area: 1 / 1;
+  align-self: end;
+  justify-self: center;
+  position: relative;
+  width: 94%;
+  height: auto;
+  filter: drop-shadow(8px 0 0 rgb(0 0 0 / 0.35));
+}
+
+.about__stub {
+  grid-area: 1 / 2;
+  align-self: end;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px 16px 22px 22px;
+  background: var(--bone);
+  color: var(--ink);
+  transform: rotate(2.5deg) translateY(-6%);
+}
+
+.about__stub::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: var(--cut);
+  bottom: var(--cut);
+  width: 4px;
+  background: repeating-linear-gradient(to bottom, var(--ink) 0 9px, transparent 9px 16px);
+}
+
+.about__stub div {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.about__stub dd {
+  font-size: var(--fs-36);
+  font-weight: 900;
+  font-stretch: 140%;
+  line-height: 1;
+}
+
+.about__stub div:nth-child(odd) dd {
+  color: var(--brick);
+}
+
+.about__stub div:nth-child(even) dd {
+  color: var(--violet);
+}
+
+.about__stub dt {
+  font-size: var(--fs-14);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.about__text {
+  max-width: 34em;
+  font-size: clamp(1.125rem, 1.45vw, 1.5rem);
+}
+
+.about__text p + p {
+  margin-top: 1em;
+}
+
+.brush--about {
+  width: 220px;
+  margin-top: 32px;
+}
+
+.brush--about path {
+  stroke: var(--mustard);
+  stroke-width: 11;
+}
+
+/* ---------- Now ---------- */
+.now__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 4fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+
+.now__title {
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-weight: 900;
+  font-stretch: 90%;
+  line-height: 1;
+  color: var(--bone);
+}
+
+.now__where {
+  margin: 10px 0 28px;
+  color: var(--lilac);
+}
+
+.now__role > p:not([class]) {
+  max-width: 34em;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.tags .sticker:nth-child(3n + 1)::before {
+  background: var(--mustard);
+}
+
+.tags .sticker:nth-child(3n + 2)::before {
+  background: var(--lilac);
+}
+
+.now__also {
+  margin-top: 48px;
+  max-width: 34em;
+  color: var(--table);
+}
+
+.heading--stack {
+  justify-self: center;
+  margin: 0;
+}
+
+.heading--stack .scribble {
+  right: -0.6em;
+  bottom: 38%;
+}
+
+.brush--now {
+  position: absolute;
+  left: -46%;
+  top: 34%;
+  width: clamp(90px, 11vw, 170px);
+}
+
+.brush--now path {
+  stroke: var(--violet);
+  stroke-width: 15;
+}
+
+/* ---------- Tools ---------- */
+.wall {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.12em 0.4em;
+  max-width: 1400px;
+  font-size: clamp(2.5rem, 7.4vw, 7.5rem);
+  font-weight: 900;
+  font-stretch: 62%;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.wall__word {
+  position: relative;
+  display: inline-block;
+}
+
+.wall__word:nth-child(3n + 1) {
+  font-size: 1.3em;
+}
+
+.wall__word:nth-child(4n + 2) {
+  font-size: 0.72em;
+  font-stretch: 125%;
+}
+
+.loop {
+  position: absolute;
+  left: -14%;
+  top: -22%;
+  width: 128%;
+  max-width: none;
+  height: 140%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.loop path {
+  stroke: var(--mustard);
+  stroke-width: 4.5;
+}
+
+.tools__notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 64px;
+  max-width: 1100px;
+  margin-top: clamp(72px, 10vw, 140px);
+}
+
+.tools__notes li {
+  max-width: 34em;
+}
+
+.tools__notes strong {
+  color: var(--mustard);
+  font-weight: 800;
+}
+
+/* ---------- Contact: the moiré comes back ---------- */
+.contact {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 18vh var(--gutter) 12vh;
+  background: var(--deep) url("/art/hero-still.jpg") 60% 50% / cover no-repeat;
+}
+
+.webgl .contact {
+  background: none;
+}
+
+.contact .heading {
+  margin-bottom: clamp(24px, 4vw, 48px);
+}
+
+.contact .heading .slab {
+  font-size: clamp(4.5rem, 14vw, 14rem);
+}
+
+.contact__mail {
+  display: inline-block;
+  max-width: 100%;
+  text-decoration: none;
+}
+
+.contact__mail .slab {
+  --w: 56%;
+  display: block;
+  font-size: clamp(2.1rem, 9vw, 9.5rem);
+  transition: font-stretch 0.45s var(--ease-slam);
+}
+
+.contact__mail:hover .slab,
+.contact__mail:focus-visible .slab {
+  --w: 74%;
+}
+
+.contact__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(32px, 5vw, 56px);
+}
+
+.sticker--link {
+  padding: 10px 18px 9px;
+  font-size: var(--fs-18);
+}
+
+.sticker--link:hover::before,
+.sticker--link:focus-visible::before {
+  background: var(--mustard);
+}
+
+/* ---------- Narrow screens ---------- */
+@media (max-width: 900px) {
+  .about__grid,
+  .now__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .heading--stack {
+    order: -1;
+    justify-self: start;
+  }
+
+  .brush--now {
+    left: auto;
+    right: -60%;
+    top: 20%;
+  }
+
+  .tools__notes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .about__collage {
+    grid-template-columns: minmax(0, 1fr) 112px;
+  }
+
+  .about__stub dd {
+    font-size: var(--fs-24);
+  }
+
+  .slab--stack {
+    font-size: 9rem;
+  }
+}

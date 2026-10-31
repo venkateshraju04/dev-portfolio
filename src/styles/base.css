@@ -1,0 +1,275 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--face);
+  font-size: var(--fs-18);
+  font-weight: 400;
+  font-stretch: 100%;
+  line-height: 1.5;
+  overflow-x: clip;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+dl,
+dd,
+figure {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--mustard);
+  outline-offset: 4px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.skip {
+  position: fixed;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--mustard);
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip:focus {
+  top: 16px;
+}
+
+/* ---------- Chamfered ticket corners ---------- */
+.cut {
+  clip-path: polygon(
+    var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut),
+    100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+    var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)
+  );
+}
+
+/* ---------- Shader canvas + grain ---------- */
+#currents {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  display: block;
+}
+
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.11;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+main,
+.footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Corner type, set like the cover's "TAME IMPALA / CURRENTS" ---------- */
+.corner {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 46;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 18px clamp(16px, 2.4vw, 32px);
+  pointer-events: none;
+}
+
+.corner__tag {
+  pointer-events: auto;
+  display: inline-block;
+  padding: 6px 10px 5px;
+  background: var(--ink);
+  color: var(--mustard);
+  border: 0;
+  font-family: var(--face);
+  font-size: var(--fs-14);
+  font-weight: 800;
+  font-stretch: 140%;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.corner__tag:hover {
+  background: var(--mustard);
+  color: var(--ink);
+}
+
+/* Hidden until the load sequence finishes */
+.js .corner,
+.js .hero__line {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.is-ready .corner,
+.is-ready .hero__line {
+  opacity: 1;
+}
+
+/* ---------- Tracklist menu (the back cover) ---------- */
+.tracklist {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 48px;
+  padding: 96px var(--gutter) 48px;
+  background: var(--deep);
+}
+
+.tracklist[hidden] {
+  display: none;
+}
+
+.tracklist__list a {
+  display: inline-block;
+  color: var(--bone);
+  font-size: clamp(3rem, 9vw, 7.5rem);
+  font-weight: 900;
+  font-stretch: 60%;
+  line-height: 0.95;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.15s, font-stretch 0.3s;
+}
+
+.tracklist__list a:hover,
+.tracklist__list a:focus-visible {
+  color: var(--mustard);
+  font-stretch: 120%;
+}
+
+.tracklist__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  font-size: var(--fs-18);
+}
+
+.tracklist__links a {
+  color: var(--lilac);
+}
+
+/* ---------- Stickers: small chamfered labels ---------- */
+.sticker {
+  position: relative;
+  isolation: isolate;
+  display: inline-block;
+  padding: 6px 12px 5px;
+  color: var(--ink);
+  font-size: var(--fs-14);
+  font-weight: 700;
+  font-stretch: 110%;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+/* The chamfer lives on a pseudo-element so focus outlines aren't clipped */
+.sticker::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--bone);
+  --cut: 6px;
+  clip-path: polygon(
+    var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut),
+    100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+    var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)
+  );
+}
+
+/* ---------- Hand-drawn brush strokes ---------- */
+.brush path,
+.loop path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: url(#rough);
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  padding: 20px var(--gutter) 28px;
+  background: var(--ink);
+  color: var(--table);
+  font-size: var(--fs-14);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
