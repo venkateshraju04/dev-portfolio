@@ -116,4 +116,3 @@ if __name__ == "__main__":
     screenshot("chat-sync.png", [DEEP, BRICK, MUSTARD], "work-chat-sync.webp")
     screenshot("blog.png", [INK, VIOLET, MUSTARD, BONE], "work-blog.webp")
     moire("work-neurorag.webp", DEEP, LILAC, seed=3)
-    moire("work-voting.webp", BRICK, MUSTARD, seed=8, freq=34)
