@@ -36,7 +36,7 @@ export function liquidWidth(lenis) {
 /** Letters slam in, then the marker title scrawls over them. */
 export function slamHeadings(slabs) {
   slabs.forEach(({ el, chars }) => {
-    if (el.closest('.ticket') || el.closest('.wall')) return;
+    if (el.closest('.ticket') || el.closest('.wall') || el.closest('.hero')) return;
     const heading = el.closest('.heading');
     const scribble = heading?.querySelector('.scribble');
     const tl = gsap.timeline({
@@ -86,6 +86,7 @@ export function slamTicketTitles(slabs, horizontalTween) {
 /** Hand-drawn strokes: drawn once on enter, or scrubbed with scroll. */
 export function drawStrokes() {
   document.querySelectorAll('svg').forEach((svg) => {
+    if (svg.closest('.hero')) return; // the hero arrow draws itself in CSS after the load sequence
     const paths = [...svg.querySelectorAll('[data-draw]')];
     if (!paths.length) return;
     paths.forEach((p) => {

@@ -1,9 +1,15 @@
-/* ---------- Hero ---------- */
+/* ---------- Hero: the name floating on the current ---------- */
 .hero {
+  --edge: clamp(16px, 2.4vw, 32px);
+  --name-fs: min(19.5vw, 31vh);
   position: relative;
   height: 100vh;
   height: 100svh;
   min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(76px, 14vh, 140px) var(--edge) clamp(20px, 4vh, 40px);
   background: var(--deep) url("/art/hero-still.jpg") 60% 50% / cover no-repeat;
 }
 
@@ -11,17 +17,132 @@
   background: none;
 }
 
+.hero__name-wrap {
+  position: relative;
+  align-self: flex-start;
+}
+
+/* Lines up with the corner tag above it; each word on its own line */
+.hero__name {
+  --w: 64%;
+  font-size: var(--name-fs);
+  line-height: 0.8;
+  margin-left: -0.02em;
+}
+
+.hero__name .slab__word {
+  display: block;
+}
+
+.hero__name .slab__word + .slab__word {
+  margin-left: 0;
+}
+
+.hero__name .slab__ch {
+  transform-origin: 50% 65%;
+}
+
+/* Marker note scrawled across the end of RAJU */
+.hero__note {
+  left: 30%;
+  right: auto;
+  bottom: -4%;
+  font-size: calc(var(--name-fs) * 0.2);
+  transform: rotate(-8deg);
+}
+
+.hero__foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px 32px;
+}
+
 .hero__line {
-  position: absolute;
-  left: clamp(16px, 2.4vw, 32px);
-  bottom: clamp(20px, 4vh, 40px);
-  max-width: calc(100vw - 32px);
+  max-width: 36ch;
   padding: 10px 14px 9px;
   background: var(--ink);
   color: var(--bone);
-  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  font-size: clamp(1rem, 1.35vw, 1.375rem);
   font-weight: 500;
   line-height: 1.35;
+}
+
+.hero__down {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px 6px 14px;
+  background: var(--ink);
+  color: var(--mustard);
+  font-family: var(--hand);
+  font-size: var(--fs-24);
+  line-height: 1;
+  text-decoration: none;
+}
+
+.brush--down {
+  width: 26px;
+  height: 52px;
+  transition: transform 0.35s var(--ease-slam);
+}
+
+.brush--down path {
+  stroke: var(--mustard);
+  stroke-width: 8;
+}
+
+/* Drawn in once the load sequence hands over */
+.js .brush--down path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.is-ready .brush--down path {
+  animation: draw-in 0.6s 0.35s ease-out forwards;
+}
+
+.is-ready .brush--down path + path {
+  animation-delay: 0.9s;
+  animation-duration: 0.25s;
+}
+
+@keyframes draw-in {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.hero__down:hover .brush--down,
+.hero__down:focus-visible .brush--down {
+  transform: translateY(6px);
+}
+
+/* Portrait: squeeze the letters narrower so the name can be much bigger */
+@media (orientation: portrait) and (max-width: 900px) {
+  .hero {
+    --name-fs: min(27vw, 17vh);
+    padding-top: clamp(96px, 16vh, 160px);
+  }
+
+  .hero__name {
+    --w: 50%;
+  }
+
+  .hero__note {
+    left: 22%;
+    bottom: -12%;
+    font-size: calc(var(--name-fs) * 0.24);
+  }
+
+  .hero__foot {
+    flex-wrap: nowrap;
+  }
+
+  .hero__down span {
+    display: none;
+  }
 }
 
 /* ---------- Black frames (About, Now, Tools) ---------- */

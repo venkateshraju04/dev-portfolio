@@ -7,7 +7,7 @@ import './styles/sections.css';
 
 import { createCurrents } from './hero/currents.js';
 import { createSphere } from './hero/sphere.js';
-import { drawNameMask } from './hero/nameMask.js';
+import { createFloatingName } from './hero/floatingName.js';
 import { splitSlabs } from './motion/slab.js';
 import {
   ScrollTrigger,
@@ -28,6 +28,9 @@ const mobile = touch || window.innerWidth < 768;
 const fullMotion = !reduced && !mobile;
 if (fullMotion) root.classList.add('motion');
 
+// Split slab text into letters first: the hero's floating name is built from them
+const slabs = splitSlabs();
+
 function seenIntro() {
   try {
     if (sessionStorage.getItem('currents-intro')) return true;
@@ -43,6 +46,8 @@ const sphere = createSphere();
 let scene = 'hero';
 let heroRest = { x: 0.2, y: -0.15 };
 let heroRadius = 0.115;
+let floating = null;
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
 function contactRest() {
   const aspect = window.innerWidth / window.innerHeight;
@@ -57,17 +62,43 @@ const currents = createCurrents(document.getElementById('currents'), {
     sphere.update(dt, state.time);
     state.sphere = sphere.uniform;
     state.trail = sphere.trail;
+
+    // the ball only starts shoving letters once it has landed
+    if (floating && scene === 'hero') {
+      const W = window.innerWidth;
+      const H = window.innerHeight;
+      const [x, y, r] = state.sphere;
+      const ball = { x: W / 2 + x * H, y: H / 2 - y * H, r: state.intro > 0.9 ? r * H : 0 };
+      floating.update(dt, state.time, ball, state.sink, state.intro, !reduced);
+      currents.setMask(floating.drawMask());
+    }
   },
 });
 
 async function layoutHero(snap) {
   if (!currents) return;
   currents.resize();
-  const { canvas, rest, radius } = await drawNameMask();
-  currents.setMask(canvas);
-  heroRest = rest;
-  heroRadius = radius;
-  sphere.setRadius(radius);
+  try {
+    await document.fonts.load('900 100px Anybody');
+  } catch {
+    /* measure with the fallback font */
+  }
+  floating ||= createFloatingName(document.querySelector('.hero__name'));
+  const end = floating.measure();
+
+  // Landscape: the ball rests just past the end of RAJU, as if it had just pushed
+  // through. Portrait: it sits lower in the open liquid, like the album cover.
+  const W = window.innerWidth;
+  const H = window.innerHeight;
+  const portrait = H > W * 1.1;
+  heroRadius = portrait ? 0.085 : 0.11;
+  const rPx = heroRadius * H;
+  const px = portrait ? W * 0.6 : clamp(end.right + rPx * 2, W * 0.45, W - rPx * 1.5);
+  const py = portrait
+    ? clamp(end.cy + end.fontPx * 0.7 + rPx * 1.6, H * 0.4, H - rPx * 2.8)
+    : clamp(end.cy + rPx * 0.3, H * 0.3, H - rPx * 2.4);
+  heroRest = { x: (px - W / 2) / H, y: (H / 2 - py) / H };
+  sphere.setRadius(scene === 'hero' ? heroRadius : heroRadius * 0.9);
   sphere.setRest(...Object.values(scene === 'hero' ? heroRest : contactRest()), snap);
 }
 
@@ -102,7 +133,6 @@ if (currents) {
 
 /* ---------- Scroll ---------- */
 const lenis = createScroller(fullMotion);
-const slabs = splitSlabs();
 initMenu(lenis);
 
 if (currents) {

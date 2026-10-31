@@ -163,13 +163,15 @@ main,
 
 /* Hidden until the load sequence finishes */
 .js .corner,
-.js .hero__line {
+.js .hero__foot,
+.js .hero__note {
   opacity: 0;
   transition: opacity 0.6s ease;
 }
 
 .is-ready .corner,
-.is-ready .hero__line {
+.is-ready .hero__foot,
+.is-ready .hero__note {
   opacity: 1;
 }
 

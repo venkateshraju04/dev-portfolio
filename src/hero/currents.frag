@@ -1,6 +1,6 @@
 #version 300 es
 // The Currents field: banded moiré that flows, wraps around a chrome sphere,
-// and hides a name as a phase shift in its lines.
+// and parts around the floating letters of the name.
 // Coordinates: p is aspect-corrected, origin at screen centre, y up, |y| <= 0.5.
 precision highp float;
 
@@ -74,8 +74,8 @@ float field(vec2 p, float sphereR, float flood) {
   float R2 = sphereR * sphereR * 1.2;
   h -= d.y * R2 / max(dot(d, d), R2);
 
-  // The name, part one: the lines bulge as they pass over the letters
-  h += uMaskAmt * texture(uMask, toUv(p)).r * 0.4 / uFreq;
+  // The floating letters push the liquid aside: lines ride up around their footprint
+  h += uMaskAmt * texture(uMask, toUv(p)).r * 1.4 / uFreq;
 
   // Scroll smear and the load ripple
   h += uVel * 0.03 * sin(p.x * 5.0 + t * 0.7);
@@ -84,12 +84,10 @@ float field(vec2 p, float sphereR, float flood) {
   return h * uFreq;
 }
 
-// swell: 0 = normal stripes, 1 = light bands swollen fat (inside the name)
-vec3 bands(float f, vec2 p, float swell) {
+vec3 bands(float f, vec2 p) {
   float s = fract(f);
   float aa = clamp(fwidth(f) * 1.1, 0.01, 0.5);
-  float edge = mix(0.52, 0.96, swell);
-  float light = 1.0 - smoothstep(edge - aa, edge + aa, abs(s - 0.5) * 2.0);
+  float light = 1.0 - smoothstep(0.52 - aa, 0.52 + aa, abs(s - 0.5) * 2.0);
   float hue = 0.5 + 0.5 * noise(p * 1.6 + 4.0);
   vec3 lightCol = mix(LILAC, PINK, hue * smoothstep(0.3, -0.5, p.y));
   lightCol = mix(lightCol, VIOLET, 0.25 * smoothstep(0.0, 0.5, p.y));
@@ -122,17 +120,12 @@ void main() {
   float r = length(p - c);
 
   float f = field(p, max(R, 1e-4), flood);
-  // The name, part two: inside the letters the light bands swell, like an engraving
-  float swell = smoothstep(0.3, 0.7, uMaskAmt * texture(uMask, toUv(p)).r);
-  vec3 col = bands(f, p, swell);
+  vec3 col = bands(f, p);
 
-  // relief light on the letters, from the top-left, so the bulge reads as type
+  // each floating letter casts a soft shadow down-right onto the liquid
   if (uMaskAmt > 0.0) {
-    vec2 uv = toUv(p);
-    vec2 o = vec2(2.5 / uRes.x, 2.5 / uRes.y) * (uRes.y / 900.0);
-    float gx = texture(uMask, uv + vec2(o.x, 0.0)).r - texture(uMask, uv - vec2(o.x, 0.0)).r;
-    float gy = texture(uMask, uv + vec2(0.0, o.y)).r - texture(uMask, uv - vec2(0.0, o.y)).r;
-    col *= clamp(1.0 + uMaskAmt * (gy - gx) * 0.9, 0.6, 1.4);
+    float sh = texture(uMask, toUv(p + vec2(-0.012, 0.02))).r;
+    col *= 1.0 - 0.55 * uMaskAmt * sh;
   }
 
   // depth: darker toward the top, like the cover
@@ -190,7 +183,7 @@ void main() {
       vec2 sp = c + rd.xy * R * 2.6 / (0.3 + abs(rd.z));
       float ff = field(sp, R, -1.0);
       // where the reflected stripes get finer than a pixel, fade to their average tone
-      vec3 floorCol = mix(bands(ff, sp, 0.0), mix(DEEP * 0.85, LILAC, 0.5), smoothstep(0.2, 0.6, fwidth(ff)));
+      vec3 floorCol = mix(bands(ff, sp), mix(DEEP * 0.85, LILAC, 0.5), smoothstep(0.2, 0.6, fwidth(ff)));
       vec3 sky = mix(vec3(0.86, 0.85, 0.9), vec3(0.1, 0.08, 0.14), smoothstep(0.0, 0.9, rd.y));
       vec3 env = mix(floorCol, sky, smoothstep(-0.12, 0.12, rd.y));
       float g = dot(env, vec3(0.3, 0.5, 0.2));

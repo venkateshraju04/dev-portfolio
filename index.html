@@ -110,10 +110,23 @@
   </nav>
 
   <main>
-    <!-- Hero: the name exists only as a bend in the shader's lines -->
+    <!-- Hero: the name floats on the current; the ball knocks the letters around -->
     <section id="top" class="hero">
-      <h1 class="visually-hidden">Venkatesh Raju</h1>
-      <p class="hero__line">Full-stack developer building AI agents.<br />Currently at Dscape.AI.</p>
+      <div class="hero__name-wrap">
+        <h1 class="hero__name slab slab--outlined" data-slab>Venkatesh Raju</h1>
+        <span class="hero__note scribble" aria-hidden="true">builds AI agents</span>
+      </div>
+
+      <div class="hero__foot">
+        <p class="hero__line">Full-stack developer and final-year computer science student in Bangalore. Currently at Dscape.AI.</p>
+        <a class="hero__down" href="#about">
+          <span>About me</span>
+          <svg class="brush brush--down" viewBox="0 0 60 120" aria-hidden="true">
+            <path pathLength="1" d="M30 6 C 14 30, 46 50, 28 74 S 30 100, 30 112" />
+            <path pathLength="1" d="M12 92 L 30 114 L 48 90" />
+          </svg>
+        </a>
+      </div>
     </section>
 
     <section id="about" class="frame about" aria-labelledby="about-title">
