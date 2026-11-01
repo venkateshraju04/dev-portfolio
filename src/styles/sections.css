@@ -64,7 +64,7 @@
 }
 
 .hero__line {
-  max-width: 36ch;
+  max-width: min(44ch, calc(100vw - 32px));
   padding: 10px 14px 9px;
   background: var(--ink);
   color: var(--bone);
@@ -305,10 +305,53 @@
   background: var(--lilac);
 }
 
-.now__also {
-  margin-top: 48px;
-  max-width: 34em;
+/* The previous role: same shape as the current one, a step quieter */
+.now__before {
+  margin-top: 56px;
+  padding-top: 28px;
+  max-width: 36em;
+  border-top: 3px dashed var(--table);
+}
+
+.now__prev {
+  font-size: var(--fs-24);
+  font-weight: 800;
+  font-stretch: 100%;
+  line-height: 1.2;
+  color: var(--bone);
+}
+
+.now__before .now__where {
+  margin: 6px 0 16px;
+}
+
+.now__where a {
+  color: inherit;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.now__wins {
+  display: grid;
+  gap: 10px;
   color: var(--table);
+}
+
+.now__wins li {
+  position: relative;
+  padding-left: 22px;
+}
+
+/* a short marker dash, not a bullet */
+.now__wins li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 12px;
+  height: 3px;
+  background: var(--mustard);
+  rotate: -8deg;
 }
 
 .heading--stack {

@@ -12,7 +12,7 @@ function actionFor(el) {
   if (el.tagName === 'BUTTON') return el.textContent.trim().toLowerCase();
   const href = el.getAttribute('href') || '';
   if (href.startsWith('mailto:')) return 'say hi';
-  if (href === '/resume') return 'résumé';
+  if (href.includes('/resume')) return 'résumé';
   if (href.startsWith('#')) return 'go';
   if (href.includes('github.com')) return 'code';
   return 'open';
