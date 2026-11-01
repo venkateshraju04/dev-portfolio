@@ -1,5 +1,5 @@
 // The name floats on the current. Each slab letter bobs with the flow, gets
-// shoved aside by the chrome ball and springs back, and is redrawn every frame
+// nudged aside by the pointer and springs back, and is redrawn every frame
 // into a small mask so the shader can bend its lines and cast shadows around it.
 
 const MASK_SCALE = 0.25;
@@ -46,20 +46,20 @@ export function createFloatingName(nameEl) {
   }
 
   /**
-   * @param ball  {x, y, r} in viewport px
+   * @param ring  the pointer's push circle {x, y, r} in viewport px (r = 0 when it isn't over the liquid)
    * @param sink  0..1 as the hero scrolls away
    * @param intro seconds since the load sequence began (large when skipped)
    * @param live  false for reduced motion: no bobbing, no collisions
    */
-  function update(dt, time, ball, sink, intro, live) {
+  function update(dt, time, ring, sink, intro, live) {
     const sy = window.scrollY;
     for (const l of letters) {
       if (live && dt > 0) {
-        const dx = l.cx + l.x - ball.x;
-        const dy = l.cy - sy + l.y - ball.y;
-        // overlap measured in an ellipse around the letter, grown by the ball radius
-        const ex = dx / (l.rx + ball.r);
-        const ey = dy / (l.ry + ball.r);
+        const dx = l.cx + l.x - ring.x;
+        const dy = l.cy - sy + l.y - ring.y;
+        // overlap measured in an ellipse around the letter, grown by the ring radius
+        const ex = dx / (l.rx + ring.r);
+        const ey = dy / (l.ry + ring.r);
         const d = Math.hypot(ex, ey);
         if (d < 1 && d > 1e-4) {
           const o = 1 - d;
@@ -76,7 +76,7 @@ export function createFloatingName(nameEl) {
       }
 
       // surface one by one after the flood; sink one by one as you scroll
-      const rise = clamp((intro - 1.05 - l.i * 0.05) / 0.55, 0, 1);
+      const rise = clamp((intro - 0.55 - l.i * 0.05) / 0.55, 0, 1);
       const up = rise >= 1 ? 1 : easeOutBack(rise);
       const s = clamp(sink * 1.6 - l.i * 0.035, 0, 1);
       const bob = live ? Math.sin(time * 1.15 + l.i * 0.75) * fontPx * 0.02 : 0;

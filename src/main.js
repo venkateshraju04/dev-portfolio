@@ -4,9 +4,9 @@ import './styles/base.css';
 import './styles/slab.css';
 import './styles/ticket.css';
 import './styles/sections.css';
+import './styles/hover-notes.css';
 
 import { createCurrents } from './hero/currents.js';
-import { createSphere } from './hero/sphere.js';
 import { createFloatingName } from './hero/floatingName.js';
 import { splitSlabs } from './motion/slab.js';
 import {
@@ -20,6 +20,7 @@ import {
 } from './motion/scroll.js';
 import { pinTicketStrip, tearOnClick } from './sections/tickets.js';
 import { initMenu } from './ui/menu.js';
+import { createHoverNotes } from './ui/hoverNotes.js';
 
 const root = document.documentElement;
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -42,40 +43,31 @@ function seenIntro() {
 }
 
 /* ---------- The current ---------- */
-const sphere = createSphere();
+const pointer = createHoverNotes();
 let scene = 'hero';
-let heroRest = { x: 0.2, y: -0.15 };
-let heroRadius = 0.115;
 let floating = null;
-const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-
-function contactRest() {
-  const aspect = window.innerWidth / window.innerHeight;
-  return aspect > 0.9 ? { x: 0.34 * aspect, y: 0.2 } : { x: 0.24 * aspect, y: 0.3 };
-}
 
 const currents = createCurrents(document.getElementById('currents'), {
   mobile,
   onFrame(state, dt) {
     if (state.intro < 10) state.intro += dt;
-    if (state.intro > 1.1) sphere.unlock();
-    sphere.update(dt, state.time);
-    state.sphere = sphere.uniform;
-    state.trail = sphere.trail;
 
-    // the ball only starts shoving letters once it has landed
+    // Over the liquid, the pointer parts the stripes and nudges the floating letters
+    pointer.update(dt);
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+    const { cx, cy, liquid } = pointer.state;
+    const r = pointer.radius * liquid;
+    state.cursor = [(cx - W / 2) / H, (H / 2 - cy) / H, r / H];
+
     if (floating && scene === 'hero') {
-      const W = window.innerWidth;
-      const H = window.innerHeight;
-      const [x, y, r] = state.sphere;
-      const ball = { x: W / 2 + x * H, y: H / 2 - y * H, r: state.intro > 0.9 ? r * H : 0 };
-      floating.update(dt, state.time, ball, state.sink, state.intro, !reduced);
+      floating.update(dt, state.time, { x: cx, y: cy, r }, state.sink, state.intro, !reduced);
       currents.setMask(floating.drawMask());
     }
   },
 });
 
-async function layoutHero(snap) {
+async function layoutHero() {
   if (!currents) return;
   currents.resize();
   try {
@@ -86,44 +78,30 @@ async function layoutHero(snap) {
   floating ||= createFloatingName(document.querySelector('.hero__name'));
   const end = floating.measure();
 
-  // Landscape: the ball rests just past the end of RAJU, as if it had just pushed
-  // through. Portrait: it sits lower in the open liquid, like the album cover.
+  // the liquid floods out from under the name, and the letters surface as it passes
   const W = window.innerWidth;
   const H = window.innerHeight;
-  const portrait = H > W * 1.1;
-  heroRadius = portrait ? 0.085 : 0.11;
-  const rPx = heroRadius * H;
-  const px = portrait ? W * 0.6 : clamp(end.right + rPx * 2, W * 0.45, W - rPx * 1.5);
-  const py = portrait
-    ? clamp(end.cy + end.fontPx * 0.7 + rPx * 1.6, H * 0.4, H - rPx * 2.8)
-    : clamp(end.cy + rPx * 0.3, H * 0.3, H - rPx * 2.4);
-  heroRest = { x: (px - W / 2) / H, y: (H / 2 - py) / H };
-  sphere.setRadius(scene === 'hero' ? heroRadius : heroRadius * 0.9);
-  sphere.setRest(...Object.values(scene === 'hero' ? heroRest : contactRest()), snap);
+  currents.state.floodFrom = [(end.right * 0.5 - W / 2) / H, (H / 2 - end.cy) / H];
 }
 
 if (currents) {
   root.classList.add('webgl');
   const intro = !reduced && !seenIntro();
   currents.state.intro = intro ? 0 : 10;
-  await layoutHero(true);
+  await layoutHero();
 
   if (reduced) {
     currents.renderOnce();
   } else {
     currents.start();
   }
-  setTimeout(() => root.classList.add('is-ready'), intro ? 1300 : 50);
-
-  window.addEventListener('pointermove', (e) => sphere.pointer(e.clientX, e.clientY), { passive: true });
-  document.addEventListener('pointerleave', () => sphere.release());
-  window.addEventListener('blur', () => sphere.release());
+  setTimeout(() => root.classList.add('is-ready'), intro ? 1000 : 50);
 
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-      layoutHero(false);
+      layoutHero();
       if (reduced) currents.renderOnce();
     }, 150);
   });
@@ -162,22 +140,17 @@ if (currents) {
         scene = 'hero';
         heroSink(self);
         currents.state.maskAmt = 1;
-        sphere.setRadius(heroRadius);
-        sphere.setRest(heroRest.x, heroRest.y, reduced);
       }
       sync();
     },
   });
 
-  // The ball rises back out of the liquid beside the email. Once the contact
-  // section's top is on screen we're in the contact scene until the hero returns.
+  // The liquid brightens back up behind the email. Once the contact section's
+  // top is on screen we're in the contact scene until the hero returns.
   const enterContact = (self) => {
     if (scene === 'contact' || self.progress <= 0) return;
     scene = 'contact';
     currents.state.maskAmt = 0;
-    const r = contactRest();
-    sphere.setRadius(heroRadius * 0.9);
-    sphere.setRest(r.x, r.y, true);
     sync();
   };
 

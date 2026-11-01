@@ -89,7 +89,7 @@
   <div class="grain" aria-hidden="true"></div>
 
   <header class="corner">
-    <a class="corner__tag" href="#top">Venkatesh Raju</a>
+    <a class="corner__tag" href="#top" data-hover="back to top">Venkatesh Raju</a>
     <button class="corner__tag corner__menu" type="button" aria-expanded="false" aria-controls="tracklist">Menu</button>
   </header>
 
@@ -113,13 +113,13 @@
     <!-- Hero: the name floats on the current; the ball knocks the letters around -->
     <section id="top" class="hero">
       <div class="hero__name-wrap">
-        <h1 class="hero__name slab slab--outlined" data-slab>Venkatesh Raju</h1>
+        <h1 class="hero__name slab slab--outlined" data-slab data-hover="go on, shove the letters">Venkatesh Raju</h1>
         <span class="hero__note scribble" aria-hidden="true">builds AI agents</span>
       </div>
 
       <div class="hero__foot">
         <p class="hero__line">Full-stack developer and final-year computer science student in Bangalore. Currently at Dscape.AI.</p>
-        <a class="hero__down" href="#about">
+        <a class="hero__down" href="#about" data-hover="scroll down">
           <span>About me</span>
           <svg class="brush brush--down" viewBox="0 0 60 120" aria-hidden="true">
             <path pathLength="1" d="M30 6 C 14 30, 46 50, 28 74 S 30 100, 30 112" />
@@ -144,12 +144,12 @@
               <path d="M20 40 L140 10" stroke="var(--ink)" stroke-width="3" fill="none" />
             </svg>
           </div>
-          <img class="about__photo" src="/art/portrait.webp" width="791" height="848" alt="Venkatesh, smiling, in a denim shirt" />
+          <img class="about__photo" src="/art/portrait.webp" width="791" height="848" alt="Venkatesh, smiling, in a denim shirt" data-hover="that's me" />
           <dl class="about__stub cut">
-            <div><dt>Projects built</dt><dd>10</dd></div>
-            <div><dt>DSA problems solved</dt><dd>300+</dd></div>
-            <div><dt>CGPA</dt><dd>8.86</dd></div>
-            <div><dt>Research papers</dt><dd>3</dd></div>
+            <div data-hover="and counting"><dt>Projects built</dt><dd>10</dd></div>
+            <div data-hover="LeetCode, in C++"><dt>DSA problems solved</dt><dd>300+</dd></div>
+            <div data-hover="out of 10"><dt>CGPA</dt><dd>8.86</dd></div>
+            <div data-hover="ask me about them"><dt>Research papers</dt><dd>3</dd></div>
           </dl>
         </figure>
 
@@ -176,7 +176,7 @@
             <div class="work__track">
 
               <article class="ticket" style="--tilt:-2.2deg; --drop:0vh">
-                <div class="ticket__art cut">
+                <div class="ticket__art cut" data-hover="updates itself daily">
                   <img src="/art/work-trend-scout.webp" width="1200" height="687" alt="" loading="lazy" />
                   <h3 class="slab slab--outlined ticket__title" data-slab>AI Trend Scout</h3>
                 </div>
@@ -189,7 +189,7 @@
               </article>
 
               <article class="ticket" style="--tilt:1.6deg; --drop:5vh">
-                <div class="ticket__art cut">
+                <div class="ticket__art cut" data-hover="ranked 7th">
                   <img src="/art/work-sales.webp" width="1200" height="750" alt="" loading="lazy" />
                   <h3 class="slab slab--outlined ticket__title" data-slab>Sales Forecasting</h3>
                   <span class="sticker sticker--stat">90.46% accurate</span>
@@ -203,7 +203,7 @@
               </article>
 
               <article class="ticket" style="--tilt:-1deg; --drop:-3vh">
-                <div class="ticket__art cut">
+                <div class="ticket__art cut" data-hover="99.62%, not a typo">
                   <img src="/art/work-neurorag.webp" width="1200" height="800" alt="" loading="lazy" />
                   <h3 class="slab slab--outlined ticket__title" data-slab>NeuroRAG-PD</h3>
                   <span class="sticker sticker--stat">99.62% accurate</span>
@@ -217,7 +217,7 @@
               </article>
 
               <article class="ticket" style="--tilt:2.4deg; --drop:3vh">
-                <div class="ticket__art cut">
+                <div class="ticket__art cut" data-hover="live chat, try it">
                   <img src="/art/work-chat-sync.webp" width="1200" height="687" alt="" loading="lazy" />
                   <h3 class="slab slab--outlined ticket__title" data-slab>Chat Sync</h3>
                 </div>
@@ -230,7 +230,7 @@
               </article>
 
               <article class="ticket" style="--tilt:-1.6deg; --drop:-1vh">
-                <div class="ticket__art cut">
+                <div class="ticket__art cut" data-hover="new posts land here">
                   <img src="/art/work-blog.webp" width="1200" height="687" alt="" loading="lazy" />
                   <h3 class="slab slab--outlined ticket__title" data-slab>Personal Blog</h3>
                 </div>
@@ -251,7 +251,7 @@
     <section id="now" class="frame now" aria-labelledby="now-title">
       <div class="now__grid">
         <div class="now__role">
-          <h3 class="now__title">Agentic AI Developer</h3>
+          <h3 class="now__title" data-hover="the day job">Agentic AI Developer</h3>
           <p class="now__where">Dscape.AI Pvt Ltd, since January 2026</p>
           <p>I build n8n automation pipelines for real business workflows, and the RAG, NLP and machine-learning pieces that turn those pipelines into agents.</p>
           <ul class="tags">
@@ -279,13 +279,13 @@
       </div>
 
       <ul class="wall" aria-label="Tools I use">
-        <li class="wall__word wall__word--fav" data-wall>React<svg class="loop" viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true"><path data-draw d="M14 52 C 10 14, 186 6, 192 44 C 198 88, 24 96, 10 62 C 4 40, 48 18, 80 16" /></svg></li>
+        <li class="wall__word wall__word--fav" data-wall data-hover="a favourite">React<svg class="loop" viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true"><path data-draw d="M14 52 C 10 14, 186 6, 192 44 C 198 88, 24 96, 10 62 C 4 40, 48 18, 80 16" /></svg></li>
         <li class="wall__word" data-wall>Node.js</li>
-        <li class="wall__word wall__word--fav" data-wall>Python<svg class="loop" viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true"><path data-draw d="M18 48 C 14 10, 190 12, 190 50 C 190 92, 20 92, 12 58 C 8 36, 60 14, 96 14" /></svg></li>
+        <li class="wall__word wall__word--fav" data-wall data-hover="a favourite">Python<svg class="loop" viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true"><path data-draw d="M18 48 C 14 10, 190 12, 190 50 C 190 92, 20 92, 12 58 C 8 36, 60 14, 96 14" /></svg></li>
         <li class="wall__word" data-wall>C++</li>
         <li class="wall__word" data-wall>MongoDB</li>
         <li class="wall__word" data-wall>Express</li>
-        <li class="wall__word wall__word--fav" data-wall>n8n<svg class="loop" viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true"><path data-draw d="M16 54 C 8 16, 184 4, 192 46 C 198 86, 28 98, 12 64 C 4 44, 52 20, 84 18" /></svg></li>
+        <li class="wall__word wall__word--fav" data-wall data-hover="a favourite">n8n<svg class="loop" viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true"><path data-draw d="M16 54 C 8 16, 184 4, 192 46 C 198 86, 28 98, 12 64 C 4 44, 52 20, 84 18" /></svg></li>
         <li class="wall__word" data-wall>Docker</li>
         <li class="wall__word" data-wall>AWS</li>
         <li class="wall__word" data-wall>Supabase</li>
@@ -306,7 +306,7 @@
 
     <section id="contact" class="contact" aria-labelledby="contact-title">
       <div class="heading">
-        <h2 id="contact-title" class="slab slab--outlined" data-slab>Say hi</h2>
+        <h2 id="contact-title" class="slab slab--outlined" data-slab data-hover="really, say hi">Say hi</h2>
         <span class="scribble" aria-hidden="true">let it happen</span>
       </div>
 
@@ -323,7 +323,7 @@
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="footer" data-hover="thanks for scrolling all the way">
     <p>© 2026 Venkatesh Raju. Inspired by Currents (Tame Impala, 2015).</p>
   </footer>
 </body>

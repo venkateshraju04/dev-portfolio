@@ -4,7 +4,7 @@ const vert = `#version 300 es
 in vec2 aPos;
 void main() { gl_Position = vec4(aPos, 0.0, 1.0); }`;
 
-const UNIFORMS = ['uRes', 'uTime', 'uSphere', 'uTrail', 'uSink', 'uVel', 'uIntro', 'uFreq', 'uMaskAmt', 'uMask', 'uLaserFrom'];
+const UNIFORMS = ['uRes', 'uTime', 'uCursor', 'uFloodFrom', 'uSink', 'uVel', 'uIntro', 'uFreq', 'uMaskAmt', 'uMask'];
 
 function compile(gl, type, src) {
   const s = gl.createShader(type);
@@ -17,8 +17,8 @@ function compile(gl, type, src) {
 }
 
 /**
- * Full-screen Currents field. The caller owns the sphere/trail state and pushes
- * it in through `state` every frame via the `onFrame` hook.
+ * Full-screen Currents field. The caller owns the cursor and mask state and
+ * pushes it in through `state` every frame via the `onFrame` hook.
  */
 export function createCurrents(canvas, { onFrame, mobile }) {
   const gl = canvas.getContext('webgl2', { antialias: false, alpha: false, powerPreference: 'high-performance' });
@@ -62,9 +62,8 @@ export function createCurrents(canvas, { onFrame, mobile }) {
     sink: 0,
     vel: 0,
     maskAmt: 1,
-    sphere: [0, 0, 0.12],
-    trail: new Float32Array(48),
-    laserFrom: [-1, 0.62],
+    cursor: [0, 0, 0],   // shader-space xy, and the radius the lines part around
+    floodFrom: [0, 0],
   };
 
   // phones get 2x so the finer portrait bands stay crisp; adaptive scaling backs off if slow
@@ -88,11 +87,10 @@ export function createCurrents(canvas, { onFrame, mobile }) {
 
   function draw() {
     const aspect = window.innerWidth / window.innerHeight;
-    state.laserFrom = [-0.5 * aspect - 0.05, 0.56];
     gl.uniform2f(u.uRes, canvas.width, canvas.height);
     gl.uniform1f(u.uTime, state.time);
-    gl.uniform3f(u.uSphere, ...state.sphere);
-    gl.uniform2fv(u.uTrail, state.trail);
+    gl.uniform3f(u.uCursor, ...state.cursor);
+    gl.uniform2f(u.uFloodFrom, ...state.floodFrom);
     gl.uniform1f(u.uSink, state.sink);
     gl.uniform1f(u.uVel, state.vel);
     gl.uniform1f(u.uIntro, state.intro);
@@ -101,7 +99,6 @@ export function createCurrents(canvas, { onFrame, mobile }) {
     const bandPx = aspect < 0.9 ? 9 : 12;
     gl.uniform1f(u.uFreq, Math.min(100, Math.max(38, window.innerHeight / bandPx)));
     gl.uniform1f(u.uMaskAmt, state.maskAmt);
-    gl.uniform2f(u.uLaserFrom, ...state.laserFrom);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
 
