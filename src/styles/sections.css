@@ -28,6 +28,10 @@
   font-size: var(--name-fs);
   line-height: 0.8;
   margin-left: -0.02em;
+  /* the letters are for pushing around, not selecting: keep the normal arrow */
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .hero__name .slab__word {

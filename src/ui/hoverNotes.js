@@ -52,9 +52,12 @@ export function createHoverNotes() {
     note.setAttribute('aria-hidden', 'true');
     document.body.appendChild(note);
 
-    const show = (target) => {
-      const text = noteFor(target);
-      state.over = overLiquid(target);
+    // Only touch the DOM when the note actually changes, so the pop-in
+    // animation never restarts for the same note
+    let current = '';
+    const apply = (text) => {
+      if (text === current) return;
+      current = text;
       if (text) note.textContent = text;
       note.classList.toggle('is-on', !!text);
     };
@@ -64,15 +67,42 @@ export function createHoverNotes() {
       state.cx = e.clientX;
       state.cy = e.clientY;
       note.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-      show(e.target);
+      state.over = overLiquid(e.target);
+      apply(noteFor(e.target));
     }, { passive: true });
-    // scrolling moves content under a still pointer, so re-check what it's over
+
+    // Scrolling slides content under a still pointer, and keeps sliding for a
+    // moment after (smooth scrolling winding down, the project strip catching up).
+    // Keep checking what's underneath every frame, but only switch notes once the
+    // new one has held for a few frames, so brushing past an edge or a gap
+    // between tickets can't make it flicker.
+    const HOLD_FRAMES = 5;
+    let watch = 0;
+    let watchUntil = 0;
+    let candidate = '';
+    let held = 0;
+    const tick = (now) => {
+      const target = document.elementFromPoint(state.cx, state.cy);
+      const text = noteFor(target);
+      state.over = overLiquid(target);
+      if (text === current) {
+        held = 0;
+      } else if (text === candidate) {
+        if (++held >= HOLD_FRAMES) apply(text);
+      } else {
+        candidate = text;
+        held = 1;
+      }
+      watch = now < watchUntil ? requestAnimationFrame(tick) : 0;
+    };
     window.addEventListener('scroll', () => {
-      if (state.cx > -900) show(document.elementFromPoint(state.cx, state.cy));
+      if (state.cx < -900) return; // pointer hasn't been seen yet
+      watchUntil = performance.now() + 1500;
+      if (!watch) watch = requestAnimationFrame(tick);
     }, { passive: true });
     const hide = () => {
       state.over = false;
-      note.classList.remove('is-on');
+      apply('');
     };
     document.addEventListener('pointerleave', hide);
     window.addEventListener('blur', hide);
