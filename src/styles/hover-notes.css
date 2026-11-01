@@ -1,0 +1,29 @@
+/* The marker sticker that pops out beside the cursor; see src/ui/hoverNotes.js.
+   It follows the pointer with transform, and pops in with the separate scale and
+   rotate properties so the two never fight. */
+.hover-note {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  pointer-events: none;
+  margin: 22px 0 0 18px;
+  padding: 5px 11px 3px;
+  background: var(--mustard);
+  color: var(--ink);
+  font-family: var(--hand);
+  font-size: 1.05rem;
+  line-height: 1.1;
+  white-space: nowrap;
+  box-shadow: 3px 3px 0 var(--ink);
+  opacity: 0;
+  scale: 0;
+  rotate: -7deg;
+  transform-origin: 0 0;
+  transition: scale 0.28s var(--ease-slam), opacity 0.15s;
+}
+
+.hover-note.is-on {
+  opacity: 1;
+  scale: 1;
+}
